@@ -1,0 +1,6 @@
+---
+roles:
+  - name: docker
+    src: git@gitlab.com:roles2620048/docker.git
+    scm: git
+    version: main
