@@ -1,0 +1,11 @@
+---
+roles:
+  - name: docker
+    src: git@gitlab.com:devops6804047/docker_role.git
+    scm: git
+    version: main
+
+  - name: nginx
+    src: git@gitlab.com:devops6804047/nginx_role.git
+    scm: git
+    version: main

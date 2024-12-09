@@ -1,0 +1,15 @@
+---
+- hosts: app
+  become: true
+  roles:
+    - docker
+  vars_files:
+    - "/root/lab3/group_vars/docker.yml"
+
+- hosts: web
+  become: true
+  roles:
+    - nginx
+  vars_files:
+    - "/root/lab3/group_vars/nginx.yml"
+
