@@ -1,0 +1,5 @@
+---
+roles:
+  - name: postgresql 
+    src: git+https://gitlab.com/devops2620048/docker.git
+    version: master
