@@ -1,0 +1,3 @@
+app_spring_repo_url: https://github.com/grafana/spring-boot-demo.git
+app_spring_dir: /opt/spring-boot-demo
+app_spring_port: 8089

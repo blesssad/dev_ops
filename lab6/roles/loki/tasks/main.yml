@@ -1,0 +1,37 @@
+- name: Добавить ключ репозитория APT для Loki
+  ansible.builtin.apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+
+- name: Добавить репозиторий APT для Loki
+  ansible.builtin.apt_repository:
+    repo: "deb https://packages.grafana.com/oss/deb stable main"
+    state: present
+
+- name: Установить Loki
+  ansible.builtin.apt:
+    name: loki
+    state: present
+    update_cache: yes
+
+- name: Создать директории для Loki
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ loki_config_dir }}"
+    - "{{ loki_data_dir }}"
+
+- name: Скопировать файл конфигурации Loki
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/../inventories/templates/loki-config.yml.j2"
+    dest: "{{ loki_config_dir }}/config.yml"
+  notify:
+    - Перезапустить Loki
+
+- name: Запустить и включить службу Loki
+  ansible.builtin.systemd:
+    name: loki
+    state: started
+    enabled: yes

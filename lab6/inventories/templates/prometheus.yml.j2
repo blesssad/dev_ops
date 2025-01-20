@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'spring-boot-app'
+    static_configs:
+      - targets: ['{{ prometheus_target_ip }}:{{ prometheus_target_port }}']
+    metrics_path: "{{ prometheus_metrics_path }}"
+    scheme: 'http'

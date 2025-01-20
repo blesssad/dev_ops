@@ -1,0 +1,8 @@
+---
+- name: Run Prometheus
+  hosts: monitoring
+  become: yes
+  roles:
+    - prometheus
+  vars_files:
+    - "../inventories/group_vars/prometheus.yml"

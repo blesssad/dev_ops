@@ -1,0 +1,21 @@
+---
+roles:
+  - name: app_spring
+    src: git@gitlab.com:roles2620048/app_spring.git
+    scm: git
+    version: master
+
+  - name: prometheus
+    src: git@gitlab.com:roles2620048/prometheus.git
+    scm: git
+    version: master
+
+  - name: loki
+    src: git@gitlab.com:roles2620048/loki.git
+    scm: git
+    version: master
+
+  - name: grafana
+    src: git@gitlab.com:roles2620048/grafana.git
+    scm: git
+    version: master

@@ -1,0 +1,8 @@
+---
+- name: Run application
+  hosts: app_spring
+  become: yes
+  roles:
+    - app_spring
+  vars_files:
+    - "../inventories/group_vars/app_spring.yml"

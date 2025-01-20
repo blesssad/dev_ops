@@ -1,0 +1,211 @@
+{
+  "dashboard": {
+    "id": 1,
+    "uid": "{{ grafana_dashboard_name }}",
+    "title": "Spring Boot Application Metrics",
+    "tags": ["spring boot", "prometheus"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "JVM Memory",
+        "targets": [
+          {
+            "expr": "jvm_memory_bytes_used{area=\"heap\"}",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "A"
+          }
+        ],
+        "id": 1,
+        "alert": {
+          "alertRuleTags": {},
+          "annotations": {
+            "message": "JVM memory usage is over 80%"
+          },
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [80],
+                "type": "gt"
+              },
+              "operator": {
+                "type": "and"
+              },
+              "query": {
+                "params": ["A"]
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "ok",
+          "frequency": "1m",
+          "handler": 1,
+          "name": "High Memory Usage Alert",
+          "noDataState": "ok",
+          "notifications": [
+            {
+              "uid": "email",
+              "isDefault": true
+            }
+          ]
+        }
+      },
+      {
+        "type": "graph",
+        "title": "JVM CPU Usage",
+        "targets": [
+          {
+            "expr": "jvm_cpu_seconds_total",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "B"
+          }
+        ],
+        "id": 2,
+        "alert": {
+          "alertRuleTags": {},
+          "annotations": {
+            "message": "JVM CPU usage is over 90%"
+          },
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [90],
+                "type": "gt"
+              },
+              "operator": {
+                "type": "and"
+              },
+              "query": {
+                "params": ["B"]
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "ok",
+          "frequency": "1m",
+          "handler": 1,
+          "name": "High CPU Usage Alert",
+          "noDataState": "ok",
+          "notifications": [
+            {
+              "uid": "email",
+              "isDefault": true
+            }
+          ]
+        }
+      },
+      {
+        "type": "graph",
+        "title": "JVM Garbage Collection",
+        "targets": [
+          {
+            "expr": "jvm_gc_pause_seconds_total",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "C"
+          }
+        ],
+        "id": 3,
+        "alert": {
+          "alertRuleTags": {},
+          "annotations": {
+            "message": "Garbage collection pauses are too long!"
+          },
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [5],
+                "type": "gt"
+              },
+              "operator": {
+                "type": "and"
+              },
+              "query": {
+                "params": ["C"]
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "ok",
+          "frequency": "1m",
+          "handler": 1,
+          "name": "Long GC Pauses Alert",
+          "noDataState": "ok",
+          "notifications": [
+            {
+              "uid": "email",
+              "isDefault": true
+            }
+          ]
+        }
+      },
+      {
+        "type": "graph",
+        "title": "Threads",
+        "targets": [
+          {
+            "expr": "jvm_threads_current",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "D"
+          }
+        ],
+        "id": 4
+      },
+      {
+        "type": "graph",
+        "title": "Active Database Connections",
+        "targets": [
+          {
+            "expr": "jdbc_connections_active",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "E"
+          }
+        ],
+        "id": 5
+      },
+      {
+        "type": "graph",
+        "title": "HTTP Requests",
+        "targets": [
+          {
+            "expr": "http_server_requests_seconds_count",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "F"
+          }
+        ],
+        "id": 6
+      },
+      {
+        "type": "graph",
+        "title": "Response Times",
+        "targets": [
+          {
+            "expr": "http_server_requests_seconds_sum / http_server_requests_seconds_count",
+            "interval": "",
+            "legendFormat": "{{ grafana_datasource_name }}",
+            "refId": "G"
+          }
+        ],
+        "id": 7
+      }
+    ]
+  }
+}
+

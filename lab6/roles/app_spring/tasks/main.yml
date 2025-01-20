@@ -1,0 +1,34 @@
+- name: Убедиться, что Git установлен
+  ansible.builtin.apt:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: Клонировать репозиторий приложения
+  ansible.builtin.git:
+    repo: "{{ app_spring_repo_url }}"
+    dest: "{{ app_spring_dir }}"
+    version: main
+
+- name: Убедиться, что Gradle установлен
+  ansible.builtin.apt:
+    name: gradle
+    state: present
+    update_cache: yes
+
+- name: Собрать приложение с помощью Gradle
+  ansible.builtin.shell: "./gradlew build"
+  args:
+    chdir: "{{ app_spring_dir }}"
+
+- name: Настроить свойства приложения
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/../inventories/templates/application.conf.j2"
+    dest: "{{ app_spring_dir }}/application.yml"
+
+- name: Запустить приложение
+  ansible.builtin.shell: "./gradlew bootRun"
+  args:
+    chdir: "{{ app_spring_dir }}"
+  async: 600
+  poll: 0

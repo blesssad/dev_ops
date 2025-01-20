@@ -1,0 +1,11 @@
+grafana_admin_password: "admin"
+grafana_port: 3000
+grafana_dashboard_name: "spring-boot-metrics"
+grafana_datasource_name: "prometheus"
+grafana_datasource_url: "http://localhost:9090"
+grafana_config_dir: "/etc/grafana"
+grafana_provisioning_dir: "/etc/grafana/provisioning"
+
+email_host: "smtp.gmail.com:587"
+email: "ganikhinm@mail.ru"
+email_password: "krasav41kkkk"

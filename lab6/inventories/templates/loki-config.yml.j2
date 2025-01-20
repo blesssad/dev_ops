@@ -1,0 +1,30 @@
+
+# This is a complete configuration to deploy Loki backed by the filesystem.
+# The index will be shipped to the storage via tsdb-shipper.
+
+auth_enabled: false
+
+server:
+  http_listen_port: "{{ loki_port }}"
+
+common:
+  ring:
+    instance_addr: "{{ loki_instance_addr }}"
+    kvstore:
+      store: inmemory
+  replication_factor: 1
+  path_prefix: "{{ loki_path_prefix }}"
+
+schema_config:
+  configs:
+  - from: 2020-05-15
+    store: tsdb
+    object_store: filesystem
+    schema: v13
+    index:
+      prefix: index_
+      period: 24h
+
+storage_config:
+  filesystem:
+    directory: "{{ loki_path_prefix }}/chunks"

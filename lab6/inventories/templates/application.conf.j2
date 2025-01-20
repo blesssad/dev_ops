@@ -1,0 +1,15 @@
+
+server:
+  port: "{{ app_spring_port }}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    prometheus:
+      enabled: true

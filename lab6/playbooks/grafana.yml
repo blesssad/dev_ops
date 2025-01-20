@@ -1,0 +1,8 @@
+---
+- name: Run Grafana
+  hosts: monitoring
+  become: yes
+  roles:
+    - grafana
+  vars_files:
+    - "../inventories/group_vars/grafana.yml"
